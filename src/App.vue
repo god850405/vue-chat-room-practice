@@ -73,15 +73,9 @@ function sendTyping() {
       </div>
 
       <div class="mt-20 mb-16">
-        <div class="clearfix" v-for="(item, index) in history.messages.filter(x=>x.name!=='Guest')" :key="index">
-          <div class="bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg">
+        <div class="clearfix" v-for="(item, index) in history.messages" :key="index">
+          <div class="bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg" :class="item.name==='Guest'?' float-right clearfix ':''">
             <span class="font-bold">{{item.name}}：</span>
-            {{item.message}}
-          </div>
-        </div>
-        <div  class="clearfix" v-for="(item, index) in history.messages.filter(x=>x.name==='Guest')" :key="index">
-          <div
-              class="bg-green-300 float-right w-3/4 mx-4 my-2 p-2 rounded-lg clearfix">
             {{item.message}}
           </div>
         </div>
