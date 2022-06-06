@@ -37,12 +37,11 @@ function sendTyping() {
 </script>
 
 <template>
-  <div class="h-full w-full">
+  <div class="h-full w-full overflow-auto">
     <div style="overscroll-behavior: none;">
       <div
           class="fixed w-full bg-green-400 h-16 pt-2 text-white flex justify-between shadow-md"
-          style="top:0px; overscroll-behavior: none;"
-      >
+          style="top:0; overscroll-behavior: none;">
         <!-- back button -->
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,17 +70,17 @@ function sendTyping() {
           />
         </svg>
       </div>
-
-      <div class="mt-20 mb-16">
+      <div class="mt-20 mb-16 overflow-x-hidden overflow-y-auto">
         <div class="clearfix" v-for="(item, index) in history.messages" :key="index">
-          <div class="bg-gray-300 w-3/4 mx-4 my-2 p-2 rounded-lg" :class="item.name==='Guest'?' float-right clearfix ':''">
-            <span class="font-bold">{{item.name}}：</span>
+          <div class="w-3/4 mx-4 my-2 p-2 rounded-lg clearfix"
+               :class="item.name==='Guest'?'bg-green-300 float-right':'bg-gray-300 float-left'">
+            <span class="font-bold" v-if="item.name!=='Guest'">{{item.name}}：</span>
             {{item.message}}
           </div>
         </div>
       </div>
     </div>
-    <div class="fixed w-full flex justify-between bg-green-100" style="bottom: 0px;">
+    <div class="fixed w-full flex justify-between bg-green-100" style="bottom: 0;">
       <textarea
           v-model="messages.message"
           class="flex-grow m-2 py-2 px-4 mr-1 rounded-full border border-gray-300 bg-gray-200 resize-none"
