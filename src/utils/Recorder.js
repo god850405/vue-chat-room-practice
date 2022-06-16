@@ -2,10 +2,12 @@ export class Recorder {
     constructor() {
         this.chunks = [];
         this.mediaRecorder = null;
-        if (navigator.mediaDevices.getUserMedia)
+        if (navigator.mediaDevices.getUserMedia) {
             this.initialize();
-        else
+        }else {
             console.error('瀏覽器不支援錄音');
+            alert('瀏覽器不支援錄音');
+        }
     }
     recording() {
         if (this.mediaRecorder.state === "recording") {
