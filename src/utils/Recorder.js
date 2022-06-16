@@ -29,6 +29,15 @@ export class Recorder {
             }
         });
     }
+    getObjectUrl(){
+        return new Promise((resolve)=>{
+            this.mediaRecorder.onstop = e => {
+                const _blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
+                this.chunks = [];
+                resolve(window.URL.createObjectURL(_blob));
+            }
+        });
+    }
     initialize(){
         navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
             this.mediaRecorder = new MediaRecorder(stream);

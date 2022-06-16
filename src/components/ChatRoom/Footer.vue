@@ -55,7 +55,7 @@ const sendPhoto = () => {
 const sendAudio = () => {
   recording.value = record.recording();
   if(!recording.value) {
-    record.getDataURL().then((res)=>{
+    record.getObjectUrl().then((res)=>{
       socket.sendMessage(msg.Audio(res));
       recording.value = false;
     });
@@ -64,10 +64,6 @@ const sendAudio = () => {
 const sendTyping = () => socket.sendTyping();
 const selectingPhoto = (e) => {
   const [file] = e.target.files;
-  const _fileReader = new FileReader();
-  _fileReader.readAsDataURL(file);
-  _fileReader.onload = (e => {
-    photoPreviewUrl.value = e.target.result;
-  })
+  photoPreviewUrl.value = window.URL.createObjectURL(file);
 }
 </script>
