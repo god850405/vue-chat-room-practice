@@ -13,6 +13,10 @@
         <img class="h-full max-w-full" :src="photoPreviewUrl" alt="preview photo" @click="sendPhoto">
       </div>
     </div>
+    <button class="m-2" style="outline: none;"  @click="sendAudio">
+      <i class="fas fa-microphone-alt text-2xl py-2 mr-2"
+        :class="recording ? 'text-gray-500' : 'text-green-400'"></i>
+    </button>
     <textarea
         v-model="message"
         class="flex-grow m-2 py-2 px-4 mr-1 rounded-full border border-gray-300 bg-gray-200 resize-none"
@@ -26,20 +30,20 @@
     </button>
   </div>
 </template>
-
 <script setup>
 import {onMounted, ref} from "vue";
 import {Message} from "../../models/Message";
 import {Socket} from "../../io/SocketClient";
-
+import {Recorder} from "../../utils/Recorder";
 const message = ref('');
 const photoPreviewUrl = ref('');
-let socket,msg ;
+const recording = ref(false);
+let socket,msg,record ;
 onMounted(()=>{
   socket = new Socket();
   msg = new Message();
+  record = new Recorder();
 });
-
 const sendMessage = () => {
   socket.sendMessage(msg.Text(message.value));
   message.value = '';
@@ -48,8 +52,16 @@ const sendPhoto = () => {
   socket.sendMessage(msg.Photo(photoPreviewUrl.value));
   photoPreviewUrl.value = '';
 }
+const sendAudio = () => {
+  recording.value = record.recording();
+  if(!recording.value) {
+    record.getDataURL().then((res)=>{
+      socket.sendMessage(msg.Audio(res));
+      recording.value = false;
+    });
+  }
+}
 const sendTyping = () => socket.sendTyping();
-
 const selectingPhoto = (e) => {
   const [file] = e.target.files;
   const _fileReader = new FileReader();

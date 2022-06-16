@@ -17,6 +17,12 @@ export class Message {
         this.time = ToDateTime();
         return this;
     }
+    Audio(message){
+        this.message = message;
+        this.type = MessageType.AUDIO
+        this.time = ToDateTime();
+        return this;
+    }
 
 
 }

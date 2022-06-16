@@ -4,12 +4,15 @@
       <div class="w-3/5 mx-4 my-2 p-2 rounded-lg clearfix relative"
            :class="item.name==='Guest'?'bg-green-300 float-right':'bg-gray-300 float-left'">
         <span class="font-bold" v-if="item.name!=='Guest'">{{item.name}}：</span>
-        <template v-if="item.type==='photo'">
-          <img :src="item.message" class="w-full" @click="open(item.message)" alt="pic">
-        </template>
-        <template v-if="item.type==='text'">{{item.message}}</template>
         <span class="text-xs text-center absolute w-[120px] bottom-0"
               :class="item.name==='Guest'? 'left-[-120px]':'right-[-120px]'">{{item.time}}</span>
+        <template v-if="item.type===MessageType.PHOTO">
+          <img :src="item.message" class="w-full" @click="open(item.message)" alt="pic">
+        </template>
+        <template v-if="item.type===MessageType.TEXT">{{item.message}}</template>
+        <template v-if="item.type===MessageType.AUDIO">
+          <audio controls class="audio-player" :src="item.message"></audio>
+        </template>
       </div>
     </div>
   </div>
@@ -17,6 +20,7 @@
 
 <script setup>
 import { useStore } from "vuex";
+import { MessageType } from '../../types'
 const $store = useStore();
 
 const open = (src) => {
