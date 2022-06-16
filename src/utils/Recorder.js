@@ -16,7 +16,7 @@ export class Recorder {
             return true;
         }
     }
-    getDataURL(){
+    getDataUrl(){
         return new Promise((resolve)=>{
             this.mediaRecorder.onstop = e => {
                 const _blob = new Blob(this.chunks,{ type: "audio/ogg; codecs=opus" });
