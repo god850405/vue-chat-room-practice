@@ -4,12 +4,16 @@ export default createStore({
     state () {
         return {
             messages: [],
-            typing:false
+            typing:false,
+            darkMode:false
         }
     },
     getters:{
         messages(state){
             return state.messages;
+        },
+        darkMode(state){
+            return state.darkMode
         }
     },
     mutations: {
@@ -21,6 +25,9 @@ export default createStore({
         },
         setTypeState (state, data){
             state.typing = data;
+        },
+        setDarkMode(state, data){
+            state.darkMode = data;
         }
     }
 })

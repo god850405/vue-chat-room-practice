@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full flex justify-between bg-green-100" style="bottom: 0;">
+  <div class="w-full flex justify-between dark:bg-slate-800 bg-green-100" style="bottom: 0;">
     <div class="relative flex items-center">
       <input type="file" accept="image/*" id="choosePhoto" class="hidden" @change="selectingPhoto">
       <label for="choosePhoto" class="flex justify-center items-center mx-2">
-        <i class="fas fa-images text-green-400 text-2xl py-2 ml-2"></i>
+        <i class="fas fa-images text-green-400 dark:text-zinc-300 text-2xl py-2 ml-2"></i>
       </label>
       <div v-if="photoPreviewUrl!==''" class="absolute w-[100px] h-[100px] top-[-110px] right-[-60px]
       bg-green-100 border border-green-400 rounded-lg flex justify-center items-center z-[1]
@@ -15,18 +15,19 @@
     </div>
     <button class="m-2" style="outline: none;"  @click="sendAudio">
       <i class="fas fa-microphone-alt text-2xl py-2 mr-2"
-        :class="recording ? 'text-gray-500' : 'text-green-400'"></i>
+        :class="recording ? 'text-gray-500 dark:text-green-400' : 'text-green-400 dark:text-zinc-300'"></i>
     </button>
     <textarea
         v-model="message"
-        class="flex-grow m-2 py-2 px-4 mr-1 rounded-full border border-gray-300 bg-gray-200 resize-none"
+        class="flex-grow m-2 py-2 px-4 mr-1 rounded-full
+        border border-gray-300 bg-gray-200 dark:bg-zinc-500 dark:placeholder:text-zinc-300 resize-none"
         rows="1"
         placeholder="Message..."
         style="outline: none;"
         @keydown.enter="sendMessage" @keypress="sendTyping"
     ></textarea>
     <button class="m-2" style="outline: none;"  @click="sendMessage">
-      <i class="fas fa-paper-plane text-green-400 text-2xl py-2 mr-2"></i>
+      <i class="fas fa-paper-plane text-green-400 dark:text-zinc-300 text-2xl py-2 mr-2"></i>
     </button>
   </div>
 </template>
