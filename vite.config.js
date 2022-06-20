@@ -12,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [vue()],
     server: {
-      port:3000,
+      port:5000,
       https:false,
       open: env.BASE_URL
     },
