@@ -21,7 +21,7 @@ export class Recorder {
     getDataUrl(){
         return new Promise((resolve)=>{
             this.mediaRecorder.onstop = e => {
-                const _blob = new Blob(this.chunks,{ type: "audio/ogg; codecs=opus" });
+                const _blob = new Blob(this.chunks,{ type: "audio/wav; codecs=opus" });
                 this.chunks = [];
                 const _reader = new FileReader();
                 _reader.readAsDataURL(_blob);
@@ -34,7 +34,7 @@ export class Recorder {
     getObjectUrl(){
         return new Promise((resolve)=>{
             this.mediaRecorder.onstop = e => {
-                const _blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
+                const _blob = new Blob(this.chunks, { type: "audio/wav; codecs=opus" });
                 this.chunks = [];
                 resolve(window.URL.createObjectURL(_blob));
             }
