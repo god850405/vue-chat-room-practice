@@ -13,17 +13,40 @@
             >
             加入
         </button>
-        <TTable></TTable>
+        <TTable :config="tableConfig"></TTable>
     </TModal>
 </template>
 <script setup>
-import TModal from "./Control/TModal.vue";
 import { defineProps, reactive } from 'vue';
+import TModal from "./Control/TModal.vue";
 import TTable from "./Control/TTable.vue";
+
 const props = defineProps({
     config: Object,
 });
 const chatRoomConfirm = () =>{
     console.log('confirm');
 }
+
+const tableConfig = reactive({
+    columns:[
+        '編號','聊天室','密碼','在線人數','室長'
+    ],
+    data:[
+        {
+            編號:'1001',
+            聊天室:'聊天室 1',
+            密碼:'0000',
+            在線人數:'8',
+            室長:'小明'
+        },
+        {
+            編號:'1002',
+            聊天室:'聊天室 2',
+            密碼:'8888',
+            在線人數:'15',
+            室長:'大華'
+        }
+    ]
+});
 </script>

@@ -1,6 +1,13 @@
 import { createStore } from 'vuex'
+import VuexPersist from 'vuex-persist'
+
+const vuexPersist = new VuexPersist({
+    key: 'chatRoom',
+    storage: window.localStorage
+});
 
 export default createStore({
+    plugins: [vuexPersist.plugin],
     state () {
         return {
             currentRoom:'全頻聊天室',
