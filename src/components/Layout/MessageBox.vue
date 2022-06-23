@@ -21,7 +21,7 @@
 <script setup>
 import { useStore } from "vuex";
 import { MessageType } from '../../types'
-import TAudio from '../TAudio.vue'
+import TAudio from '../Control/TAudio.vue'
 import {reactive} from "vue";
 const $store = useStore();
 const open = (src) => {

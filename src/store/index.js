@@ -3,12 +3,16 @@ import { createStore } from 'vuex'
 export default createStore({
     state () {
         return {
+            currentRoom:'全頻聊天室',
             messages: [],
             typing:false,
             darkMode:false
         }
     },
     getters:{
+        currentRoom(state){
+            return state.currentRoom;
+        },
         messages(state){
             return state.messages;
         },
