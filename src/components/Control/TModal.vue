@@ -23,7 +23,7 @@
                 </div>
                 <div class="w-1/2 p-1">
                     <button type="button"
-                        class="w-full py-1 text-2xl font-bold text-green-400 duration-300 border-2 border-green-400 hover:bg-green-400 hover:bg-opacity-30 dark:hover:bg-slate-300 dark:text-slate-900 dark:border-slate-900 rounded-3xl"
+                        class="w-full py-1 text-2xl font-bold text-green-400 duration-300 border-2 border-green-400 hover:bg-green-400 hover:bg-opacity-30 dark:hover:bg-slate-300 dark:text-slate-900 dark:border-slate-300 rounded-3xl"
                         @click="config.visible = false">
                         關閉
                     </button>

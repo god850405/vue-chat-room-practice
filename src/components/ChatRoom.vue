@@ -11,6 +11,7 @@
         <button type="button"
             class="w-full py-1 my-2 text-2xl font-bold text-green-100 duration-300 ease-in-out bg-green-400 dark:bg-slate-900 dark:text-zinc-300 rounded-3xl dark:hover:bg-slate-500 hover:bg-opacity-60"
             >
+            <i class="fas fa-sign-in"></i>
             加入
         </button>
         <TTable :config="tableConfig"></TTable>
@@ -30,23 +31,29 @@ const chatRoomConfirm = () =>{
 
 const tableConfig = reactive({
     columns:[
-        '編號','聊天室','密碼','在線人數','室長'
+        {prop: "", label: "",  type: "operate",
+        operations: [
+            {action: "enter",key:'roomNo',type: "success", text: "進入", icon: "fas fa-sign-in-alt"},
+            {action: "exit",key:'roomNo',type: "danger", text: "離開", icon: "fas fa-sign-out-alt"},
+        ]},
+        {prop: "roomNo", label: "編號",  type: "text"},
+        {prop: "title", label: "聊天室",  type: "text"},
+        {prop: "password", label: "密碼",  type: "text"},
+        {prop: "users", label: "在線/人數",  type: "text"},
+        {prop: "host", label: "室長",  type: "text"},
+        {prop: "", label: "",  type: "btn", 
+            btn:{action: "edit", key:'roomNo', class: "bg-amber-300",  text: "編輯",  icon: "fas fa-edit"}
+        },
     ],
     data:[
         {
-            編號:'1001',
-            聊天室:'聊天室 1',
-            密碼:'0000',
-            在線人數:'8',
-            室長:'小明'
+            roomNo:'1001',
+            title:'聊天室 1',
+            password:'0000',
+            users:'8 / 16',
+            host:'小明'
         },
-        {
-            編號:'1002',
-            聊天室:'聊天室 2',
-            密碼:'8888',
-            在線人數:'15',
-            室長:'大華'
-        }
-    ]
+    ],
+    loading:false
 });
 </script>
