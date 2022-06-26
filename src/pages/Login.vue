@@ -19,18 +19,13 @@
 import { ref } from "vue";
 import { useStore } from 'vuex';
 
-const $route = useRoute();
 const $store = useStore();
 const userName = ref('');
 
 function submit() {
     if (userName.value !== '' && userName.value !== undefined) {
-        fetch(import.meta.env.VITE_SOCKET_URL +`checkUserName/${userName.value}`, {
-            mode: 'cors',
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        }).then(res => {
+        fetch(import.meta.env.VITE_SOCKET_URL +`checkUserName/${userName.value}`)
+        .then(res => {
             res.json().then(exist=>{
                 if(exist){
                     alert('暱稱已存在');

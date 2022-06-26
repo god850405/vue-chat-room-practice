@@ -38,6 +38,7 @@ const settingConfig = reactive({
 
 const chatRoomConfig = reactive({
   visible:false,
-  title:'聊天室'
+  title:'聊天室',
+  confirm:false
 });
 </script>

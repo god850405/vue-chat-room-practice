@@ -13,15 +13,15 @@
             <div class="px-5 py-8 text-xl bg-white">
                 <slot></slot>
             </div>
-            <div class="flex p-2 pt-0 bg-white">
-                <div class="w-1/2 p-1">
+            <div class="flex justify-center p-2 pt-0 bg-white">
+                <div class="w-1/2 p-1" v-if="(config.confirm??true)">
                     <button type="button"
                         class="w-full py-1 text-2xl font-bold text-green-100 duration-300 ease-in-out bg-green-400 dark:bg-slate-900 dark:text-zinc-300 rounded-3xl dark:hover:bg-slate-500 hover:bg-opacity-60"
                         @click="emit('confirm')">
                         確定
                     </button>
                 </div>
-                <div class="w-1/2 p-1">
+                <div class="w-1/2 p-1" v-if="(config.cancel??true)">
                     <button type="button"
                         class="w-full py-1 text-2xl font-bold text-green-400 duration-300 border-2 border-green-400 hover:bg-green-400 hover:bg-opacity-30 dark:hover:bg-slate-300 dark:text-slate-900 dark:border-slate-300 rounded-3xl"
                         @click="config.visible = false">

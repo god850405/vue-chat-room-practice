@@ -45,7 +45,7 @@ export default createStore({
         },
         setUserName(state, data){
             state.userName = data;
-            router.push($route.query.redirect || '/ChatRoom').catch(() => {});
+            router.push(router.currentRoute.value.query.redirect || '/ChatRoom').catch(() => {});
         },
         clearUserName(state){
             state.userName = undefined;

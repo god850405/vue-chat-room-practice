@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full flex justify-between dark:bg-slate-800 bg-green-100" style="bottom: 0;">
+  <div class="flex justify-between w-full bg-green-100 dark:bg-slate-800" style="bottom: 0;">
     <div class="relative flex items-center">
       <input type="file" accept="image/*" id="choosePhoto" class="hidden" @change="selectingPhoto">
-      <label for="choosePhoto" class="flex justify-center items-center mx-2">
-        <i class="fas fa-images text-green-400 dark:text-zinc-300 text-2xl py-2 ml-2"></i>
+      <label for="choosePhoto" class="flex items-center justify-center mx-2">
+        <i class="py-2 ml-2 text-2xl text-green-400 fas fa-images dark:text-zinc-300"></i>
       </label>
       <div v-if="photoPreviewUrl!==''" class="absolute w-[100px] h-[100px] top-[-110px] right-[-60px]
       bg-green-100 border border-green-400 rounded-lg flex justify-center items-center z-[1]
@@ -14,20 +14,19 @@
       </div>
     </div>
     <button class="m-2" style="outline: none;"  @click="sendAudio">
-      <i class="fas fa-microphone-alt text-2xl py-2 mr-2"
+      <i class="py-2 mr-2 text-2xl fas fa-microphone-alt"
         :class="recording ? 'text-gray-500 dark:text-green-400' : 'text-green-400 dark:text-zinc-300'"></i>
     </button>
     <textarea
         v-model="message"
-        class="flex-grow m-2 py-2 px-4 mr-1 rounded-full
-        border border-gray-300 bg-gray-200 dark:bg-zinc-500 dark:placeholder:text-zinc-300 resize-none"
+        class="flex-grow px-4 py-2 m-2 mr-1 bg-gray-200 border border-gray-300 rounded-full resize-none dark:bg-zinc-500 dark:placeholder:text-zinc-300"
         rows="1"
         placeholder="Message..."
         style="outline: none;"
-        @keydown.enter="sendMessage" @keypress="sendTyping"
+        @keydown.enter="sendMessage" 
     ></textarea>
     <button class="m-2" style="outline: none;"  @click="sendMessage">
-      <i class="fas fa-paper-plane text-green-400 dark:text-zinc-300 text-2xl py-2 mr-2"></i>
+      <i class="py-2 mr-2 text-2xl text-green-400 fas fa-paper-plane dark:text-zinc-300"></i>
     </button>
   </div>
 </template>
@@ -46,23 +45,22 @@ onMounted(()=>{
   record = new Recorder();
 });
 const sendMessage = () => {
-  socket.sendMessage(msg.Text(message.value));
+  socket.post(msg.Text(message.value));
   message.value = '';
 }
 const sendPhoto = () => {
-  socket.sendMessage(msg.Photo(photoPreviewUrl.value));
+  socket.post(msg.Photo(photoPreviewUrl.value));
   photoPreviewUrl.value = '';
 }
 const sendAudio = () => {
   recording.value = record.recording();
   if(!recording.value) {
     record.getDataUrl().then((res)=>{
-      socket.sendMessage(msg.Audio(res));
+      socket.post(msg.Audio(res));
       recording.value = false;
     });
   }
 }
-const sendTyping = () => socket.sendTyping();
 const selectingPhoto = (e) => {
   const [file] = e.target.files;
   const _fileReader = new FileReader();

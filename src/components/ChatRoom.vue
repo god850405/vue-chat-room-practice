@@ -1,20 +1,6 @@
 <template>
-    <TModal :config="config" @confirm="chatRoomConfirm">
-        <div class="flex flex-wrap items-center my-1">
-            <label class="mr-3 font-bold">聊天室代碼</label>
-            <input type="text" class="flex-1 border-2 focus:outline-green-400" />
-        </div>
-        <div class="flex flex-wrap items-center my-1">
-            <label class="mr-3 font-bold">聊天室密碼</label>
-            <input type="text" class="flex-1 border-2 focus:outline-green-400" />
-        </div>        
-        <button type="button" @click="joinRoom"
-            class="w-full py-1 my-2 text-2xl font-bold text-green-100 duration-300 ease-in-out bg-green-400 dark:bg-slate-900 dark:text-zinc-300 rounded-3xl dark:hover:bg-slate-500 hover:bg-opacity-60"
-            >
-            <i class="fas fa-sign-in"></i>
-            加入
-        </button>
-        <TTable :config="tableConfig"></TTable>
+    <TModal :config="config">
+        <TTable :config="tableConfig" @action="handleTableAction"></TTable>
     </TModal>
 </template>
 <script setup>
@@ -25,13 +11,9 @@ const props = defineProps({
     config: Object,
 });
 
-const chatRoomConfirm = () =>{
-    console.log('confirm');
-}
-
 const tableConfig = reactive({
     columns:[
-        {prop: "", label: "",  type: "operate",
+        {prop: "", label: "", type: "operate",
         operations: [
             {action: "enter",key:'roomNo',type: "success", text: "進入", icon: "fas fa-sign-in-alt"},
             {action: "exit",key:'roomNo',type: "danger", text: "離開", icon: "fas fa-sign-out-alt"},
@@ -48,7 +30,23 @@ const tableConfig = reactive({
     loading:false
 });
 
+const handleTableAction = (val) =>{
+    switch (val) {
+        case "enter":break;
+        case "exit":break;
+        case "edit":break;
+        default:break;
+    }
+}
+
 watch(()=>props.config.visible,(val)=>{
-    console.log(val);
+    if(val){
+        fetch(import.meta.env.VITE_SOCKET_URL +'getRoom')
+        .then(res => {
+            res.json().then(data=>{
+                tableConfig.data = data;
+            })
+        });
+    }
 });
 </script>

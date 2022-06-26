@@ -4,11 +4,12 @@ import $store from '../store'
 export class Socket {
     constructor() {
         this.socket = io(import.meta.env.VITE_SOCKET_URL);
+        this.roomID = '';
         this.messageBox = document.getElementById('messageBox');
         this.initialize();
-        this.addUser($store.state.userName);
     }
     initialize () {
+        this.addUser($store.state.userName);
         // 加入使用者錯誤
         this.socket.on("add-user-fail", message => {
             alert(message);
@@ -39,22 +40,26 @@ export class Socket {
         this.socket.on("alert-message", message => {
             alert(message);
         });
+        this.join('all','');
     }
 
     addUser(userName) {
         this.socket.emit("add-user", userName);
     }
     createRoom(title,password) {
-        this.socket.emit("create-room", {title,password});
+        this.socket.emit("create-room", {title : title,password:password});
     }
     join(roomID,password) {
-        this.socket.emit("join", {roomID,password});
+        this.roomID = roomID;
+        this.socket.emit("join", {roomID : roomID,password : password});
     }
-    leave(roomID) {
-        this.socket.emit("leave", roomID);
+    leave() {
+        if(this.roomID)
+            this.socket.emit("leave", this.roomID);
     }
-    post(roomID,message) {
-        this.socket.emit("post", {roomID,message});
+    post(message) {
+        if(this.roomID)
+            this.socket.emit("post", {roomID:this.roomID,message:message});
     }
 }
 
