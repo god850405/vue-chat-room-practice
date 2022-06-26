@@ -6,21 +6,16 @@ export class Socket {
         this.socket = io(import.meta.env.VITE_SOCKET_URL);
         this.messageBox = document.getElementById('messageBox');
         this.initialize();
+        this.addUser($store.state.userName);
     }
     initialize () {
-        // 進入聊天室時，會收到之前的全部訊息，並更新到 vuex messages
-        this.socket.on("allMessage", obj => {
-            $store.commit('setMessage',obj);
-            setTimeout(()=>{
-                this.messageBox.scroll({
-                    top: this.messageBox.scrollHeight,
-                    behavior: 'smooth'
-                });
-            },200);
+        // 加入使用者錯誤
+        this.socket.on("add-user-fail", message => {
+            alert(message);
+            $store.commit('clearUserName');
         });
-
-        // 設定接收到新訊息的監聽器
-        this.socket.on("newMessage", obj => {
+        // 聊天室接收到新訊息的監聽器
+        this.socket.on("room-brocast", obj => {
             $store.commit('addMessage',obj);
             this.messageBox.scrollTop = this.messageBox.scrollHeight;
             setTimeout(()=>{
@@ -30,17 +25,36 @@ export class Socket {
                 });
             },200);
         });
-
-        this.socket.on("someoneIsTyping", value => {
-            $store.commit('setTypeState',value);
+        // 進入聊天室時，會收到之前的全部訊息，並更新到 vuex messages
+        this.socket.on("get-room-all-message", obj => {
+            $store.commit('setMessage',obj);
+            setTimeout(()=>{
+                this.messageBox.scroll({
+                    top: this.messageBox.scrollHeight,
+                    behavior: 'smooth'
+                });
+            },200);
+        });
+        // 通知訊息
+        this.socket.on("alert-message", message => {
+            alert(message);
         });
     }
 
-    sendMessage(message) {
-        this.socket.emit("sendMessage", message)
+    addUser(userName) {
+        this.socket.emit("add-user", userName);
     }
-    sendTyping() {
-        this.socket.emit("sendTyping");
+    createRoom(title,password) {
+        this.socket.emit("create-room", {title,password});
+    }
+    join(roomID,password) {
+        this.socket.emit("join", {roomID,password});
+    }
+    leave(roomID) {
+        this.socket.emit("leave", roomID);
+    }
+    post(roomID,message) {
+        this.socket.emit("post", {roomID,message});
     }
 }
 

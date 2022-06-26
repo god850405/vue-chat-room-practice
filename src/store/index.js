@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 import VuexPersist from 'vuex-persist'
+import { useRoute } from 'vue-router';
+import router from '../router';
 
 const vuexPersist = new VuexPersist({
     key: 'chatRoom',
@@ -12,8 +14,8 @@ export default createStore({
         return {
             currentRoom:'全頻聊天室',
             messages: [],
-            typing:false,
-            darkMode:false
+            darkMode:false,
+            userName:undefined
         }
     },
     getters:{
@@ -25,6 +27,9 @@ export default createStore({
         },
         darkMode(state){
             return state.darkMode
+        },
+        isAuthorized(state){
+            return state.userName!==''&&state.userName!==undefined;
         }
     },
     mutations: {
@@ -34,11 +39,18 @@ export default createStore({
         addMessage (state, data) {
             state.messages.push(data);
         },
-        setTypeState (state, data){
-            state.typing = data;
-        },
+
+        
         setDarkMode(state, data){
             state.darkMode = data;
+        },
+        setUserName(state, data){
+            state.userName = data;
+            router.push($route.query.redirect || '/ChatRoom').catch(() => {});
+        },
+        clearUserName(state){
+            state.userName = undefined;
+            router.push('/').catch(() => {});
         }
     }
 })
