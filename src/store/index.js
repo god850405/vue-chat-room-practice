@@ -1,6 +1,5 @@
 import { createStore } from 'vuex'
 import VuexPersist from 'vuex-persist'
-import { useRoute } from 'vue-router';
 import router from '../router';
 
 const vuexPersist = new VuexPersist({
@@ -40,7 +39,7 @@ export default createStore({
             state.messages.push(data);
         },
 
-        
+
         setDarkMode(state, data){
             state.darkMode = data;
         },

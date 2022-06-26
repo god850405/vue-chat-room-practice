@@ -48,7 +48,7 @@ const tableConfig = reactive({
     loading:false
 });
 
-watch(()=>cconfig.visible,(val)=>{
+watch(()=>props.config.visible,(val)=>{
     console.log(val);
 });
 </script>
