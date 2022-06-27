@@ -38,8 +38,9 @@ export default createStore({
         addMessage (state, data) {
             state.messages.push(data);
         },
-
-
+        setCurrentRoom(state, data){
+            state.currentRoom = data;
+        },
         setDarkMode(state, data){
             state.darkMode = data;
         },

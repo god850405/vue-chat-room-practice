@@ -3,7 +3,7 @@
         <div class="w-11/12 p-5 bg-white rounded-lg shadow-lg md:w-auto md:p-10">
             <div class="flex my-2 text-xl">
                 <label class="mr-3 font-bold">暱稱</label>
-                <input v-model="userName" type="text" class="flex-1 border-2 focus:outline-green-400" />
+                <input v-model="userName" type="text" class="flex-1 text-center border-2 focus:outline-green-400" />
             </div>
             <div class="flex justify-center">
                 <button type="button" @click="submit()"

@@ -33,7 +33,8 @@ const toggleDarkMode = (val)=>{
 
 const settingConfig = reactive({
   visible:false,
-  title:'聊天設定'
+  title:'聊天設定',
+  confirmText:'離開'
 });
 
 const chatRoomConfig = reactive({
@@ -41,4 +42,5 @@ const chatRoomConfig = reactive({
   title:'聊天室',
   confirm:false
 });
+
 </script>

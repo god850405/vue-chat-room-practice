@@ -2,10 +2,11 @@
   <div id="messageBox" class="overflow-x-hidden overflow-y-auto bg-white grow dark:bg-zinc-700">
     <div class="clearfix" v-for="(item, index) in $store.getters.messages" :key="index">
       <div class="relative clearfix w-3/5 p-2 mx-4 my-2 rounded-lg"
-            :class="item.userName==='Guest'?'bg-green-300 float-right':'bg-gray-300 float-left'">
-        <span class="font-bold" v-if="item.userName!=='Guest'">{{item.userName}}：</span>
+            :class="item.userName===$store.state.userName?
+            'bg-green-300 float-right':'bg-gray-300 float-left'">
+        <span class="font-bold" v-if="item.userName!==$store.state.userName">{{item.userName}}：</span>
         <span class="text-black dark:text-zinc-400 text-xs text-center absolute w-[120px] bottom-0"
-              :class="item.userName==='Guest'? 'left-[-120px]':'right-[-120px]'">{{item.time}}</span>
+              :class="item.userName===$store.state.userName? 'left-[-120px]':'right-[-120px]'">{{item.time}}</span>
         <template v-if="item.type===MessageType.PHOTO">
           <img :src="item.message" class="w-full" @click="open(item.message)" alt="pic">
         </template>

@@ -33,30 +33,31 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import {Message} from "../../models/Message";
-import {Socket} from "../../io/SocketClient";
+import {socket} from "../../io/SocketClient";
 import {Recorder} from "../../utils/Recorder";
+import { MessageType } from "../../types";
 const message = ref('');
 const photoPreviewUrl = ref('');
 const recording = ref(false);
-let socket,msg,record ;
+// let socket;
+let record ;
 onMounted(()=>{
-  socket = new Socket();
-  msg = new Message();
+  // socket = new Socket();
   record = new Recorder();
 });
 const sendMessage = () => {
-  socket.post(msg.Text(message.value));
+  socket.post(new Message(message.value, MessageType.TEXT));
   message.value = '';
 }
 const sendPhoto = () => {
-  socket.post(msg.Photo(photoPreviewUrl.value));
+  socket.post(new Message(photoPreviewUrl.value, MessageType.PHOTO));
   photoPreviewUrl.value = '';
 }
 const sendAudio = () => {
   recording.value = record.recording();
   if(!recording.value) {
     record.getDataUrl().then((res)=>{
-      socket.post(msg.Audio(res));
+      socket.post(new Message(res, MessageType.AUDIO));
       recording.value = false;
     });
   }

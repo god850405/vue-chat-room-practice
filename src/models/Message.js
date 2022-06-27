@@ -1,28 +1,9 @@
-import {MessageType} from "../types";
 import {ToDateTime} from "../utils/Common";
 
 export class Message {
-    constructor({name = 'Guest'} = {}) {
-        this.name = name;
-    }
-    Text(message){
+    constructor(message, type) {
         this.message = message;
-        this.type = MessageType.TEXT
+        this.type = type
         this.time = ToDateTime();
-        return this;
     }
-    Photo(message){
-        this.message = message;
-        this.type = MessageType.PHOTO
-        this.time = ToDateTime();
-        return this;
-    }
-    Audio(message){
-        this.message = message;
-        this.type = MessageType.AUDIO
-        this.time = ToDateTime();
-        return this;
-    }
-
-
 }
