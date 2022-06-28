@@ -18,6 +18,7 @@
 <script setup>
 import { ref } from "vue";
 import { useStore } from 'vuex';
+import {socket} from "../io/SocketClient";
 
 const $store = useStore();
 const userName = ref('');
@@ -30,6 +31,7 @@ function submit() {
                 if(exist){
                     alert('暱稱已存在');
                 }else{
+                    socket.addUser(userName.value);
                     $store.commit('setUserName', userName.value);
                 }
             })

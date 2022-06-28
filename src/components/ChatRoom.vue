@@ -21,9 +21,7 @@ const tableConfig = reactive({
 
 const handleTableAction = ({action,data}) =>{
     switch (action) {
-        case "enter":socket.join(data,'');break;
-        case "edit":break;
-        case "create":break;
+        case "enter":socket.join(data,'');props.config.visible=false;break;
         default:break;
     }
 }
