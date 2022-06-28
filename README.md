@@ -4,10 +4,11 @@
 - Tailwind CSS
 ---
 ### 功能：
+- 暗黑模式
 - 文字訊息
 - 圖片訊息
 - 語音訊息
-- 暗黑模式
-### Server Side ：https://zihchat.herokuapp.com/
+- 切換聊天室
 
+### Server https://github.com/god850405/nodejs-chat-room-server-practice
 
